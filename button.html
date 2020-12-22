@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      button {
+        background-color: white;
+        border-radius: 16px;
+        border: 1px solid black;
+        box-shadow: 3px 3px black;
+        padding: 8px 18px; /* 移除点击按钮字体移动效果 */
+      }
+      button:active {
+        transform: translateX(3px) translateY(3px);
+        box-shadow: 0px 0px black;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button>按钮</button>
+    </div>
+  </body>
+</html>
