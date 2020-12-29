@@ -7,10 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
       .mo_select {
+        position: relative;
         width: 122px;
       }
       .select_btn {
-        position: relative;
         width: 30px;
         height: 32px;
         padding: 0 8px;
@@ -19,11 +19,8 @@
         border: 1px solid black;
         border-radius: 0 16px 16px 0;
         box-shadow: 3px 3px black;
-        z-index: 3;
       }
       .select_show {
-        display: inline-block;
-        position: relative;
         width: 90px;
         height: 30px;
         border: 1px solid black;
@@ -34,14 +31,29 @@
         transform: translateX(3px) translateY(3px);
         box-shadow: 0px 0px black;
       }
+      .select_list {
+        position: absolute;
+        top: 40px;
+        height: 120px;
+        width: 120px;
+        border-radius: 16px;
+      }
+      .list_init {
+        display: none;
+      }
+      .list_up{
+        border: 1px solid black;
+        animation: 0.3s fadeIn forwards;
+      }
+      .list_down{
+        animation: 0.3s fadeOut forwards;
+      }
       @keyframes fadeIn {
         0%{
-          border: 1px solid black;
           transform: translateX(3px) translateY(3px);
         }
         100% {
           box-shadow: 3px 3px black;
-          border: 1px solid black;
           transform: none;
         }
       }
@@ -55,18 +67,9 @@
           border: 1px solid black;
         }
         100% {
-          display: none;
+          visibility: hidden;
           transform: translateX(3px) translateY(3px);
         }
-      }
-      .select_list {
-        border-radius: 16px;
-      }
-      .active{
-        animation: 0.3s fadeIn forwards;
-      }
-      .disActive{
-        animation: 0.3s fadeOut forwards;
       }
       .mo_select ul {
         position: relative;
@@ -84,7 +87,7 @@
       <div class="mo_select">
         <button class="select_btn" @click="handleActive"></button>
         <div class="select_show"></div>
-        <div class="select_list" :class="{active: isActive, disActive: isDisActive}">
+        <div class="select_list" :class="{list_init: isInit ,list_up: isUp, list_down: isDown}">
           <ul>
             <li v-for="item in items" v-key="item.key">{{item.content}}</li>
           </ul>
@@ -95,8 +98,9 @@
       new Vue({
         el: '#app',
         data: {
-          isActive: false,
-          isDisActive: false,
+          isInit: true,
+          isUp: false,
+          isDown: false,
           items: [
             {
               key: 1,
@@ -114,10 +118,12 @@
         },
         methods: {
           handleActive() {
-            if(!this.isActive) {
-              this.isActive = !this.isActive
-            }else{
-              this.isDisActive = !this.isDisActive
+            if(this.isInit){
+              this.isInit = false
+              this.isUp = true
+            } else {
+              this.isUp = !this.isUp
+              this.isDown = !this.isDown
             }
           }
         }
